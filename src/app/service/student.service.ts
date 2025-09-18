@@ -21,8 +21,6 @@ export class StudentService {
     return this.httpCall.get(this.apiURL+"/"+d);
   }
   deleteStudentById(d:any):Observable<any>{
-    return d;
+    return this.httpCall.delete(this.apiURL+"/"+d);
   }
 }
-// git remote add origin https://github.com/abilash-mosuru/SelfPractice_Json.git
-// git push -u origin main
