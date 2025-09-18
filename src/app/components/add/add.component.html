@@ -19,7 +19,6 @@
                     </small>
                 </div>
             </td>
-         
             <td>
                 <input type="password" formControlName="password" placeholder="Enter your Password" id = "password">
                 <div *ngIf = "formG.get('password')?.['invalid'] && (formG.get('password')?.['dirty'] || formG.get('password')?.['touched'])">
@@ -63,6 +62,7 @@
                         Invalid Date of Birth.
                     </small>
                 </div>
+
             </td>
         </table>
         <input type="submit" [disabled]="formG.invalid" value="register">

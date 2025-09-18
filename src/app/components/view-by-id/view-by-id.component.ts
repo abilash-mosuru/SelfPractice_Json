@@ -11,7 +11,6 @@ import { StudentService } from 'src/app/service/student.service';
 export class ViewByIdComponent implements OnInit{
   stud$!:Student;
   constructor(private service:StudentService,private active:ActivatedRoute){
-    
   }
   ngOnInit(): void {
     this.active.params.subscribe(para=>{

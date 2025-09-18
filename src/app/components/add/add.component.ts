@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from 'src/app/service/student.service';
 
@@ -7,9 +7,11 @@ import { StudentService } from 'src/app/service/student.service';
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css']
 })
-export class AddComponent {
+export class AddComponent implements OnInit{
   formG!:FormGroup;
   constructor(private formBuilder:FormBuilder,private service:StudentService){
+  }
+  ngOnInit(): void {
     this.formG = this.formBuilder.group({
       username:["",[Validators.required,Validators.minLength(4),Validators.maxLength(12)]],
       password:["",[Validators.required,Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$')]],
