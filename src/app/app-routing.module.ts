@@ -8,7 +8,8 @@ const routes: Routes = [
   {path:'',redirectTo:'viewStudent',pathMatch:"full"},
   {path:'viewStudent',component:ViewComponent},
   {path:'addStudent',component:AddComponent},
-  {path:'viewById/:id',component:ViewByIdComponent}
+  {path:'viewById/:id',component:ViewByIdComponent},
+  {path:'viewStudent/:id',component:ViewComponent}
 ];
 
 @NgModule({

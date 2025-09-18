@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
 import { Student } from 'src/app/model/student';
 import { StudentService } from 'src/app/service/student.service';
@@ -11,8 +12,13 @@ import { StudentService } from 'src/app/service/student.service';
 export class ViewComponent implements OnInit{
   data$:Observable<Student[]>=of([]);
   finalData$:Observable<Student[]>=of([]);
-  constructor(private service:StudentService){}
+  idValue!:string;
+  constructor(private service:StudentService,private active:ActivatedRoute,private route:Router){}
   ngOnInit(): void {
+    this.idValue = String(this.active.snapshot.paramMap.get('id'));
+    if(this.idValue){
+      this.deleteRecord(this.idValue);
+    }
     this.getData();
   }
   getData(){
@@ -33,7 +39,9 @@ export class ViewComponent implements OnInit{
     }
   }
   deleteRecord(id:any){
-    alert(id);
+    this.service.deleteStudentById(id).subscribe((d)=>{
+      this.route.navigate(['/viewStudent'])
+    })
   }
 
 }

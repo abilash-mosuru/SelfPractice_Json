@@ -15,6 +15,7 @@
         <td>{{s.email}}</td>
         <td>{{s.dateofBirth}}</td>
         <td><a routerLink = "/viewById/{{s.id}}">View</a></td>
-        <td><input type="button" (click)="deleteRecord(s.id)" value="Delete"></td>
+        <td><a routerLink = "/viewStudent/{{s.id}}">Delete</a></td>
+        <!-- <td><input type="button" (click)="deleteRecord(s.id)" value="Delete"></td> -->
     </tr>
 </table>
