@@ -1,0 +1,20 @@
+<input type="text" (input) = "searchValue($event)" placeholder="Enter Name | Id">
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Date of Birth</th>
+        <th colspan="2">Action</th>
+    </tr>
+    <tr *ngFor = "let s of finalData$ | async">
+        <td>{{s.username}}</td>
+        <td>{{s.password}}</td>
+        <td>{{s.mobile}}</td>
+        <td>{{s.email}}</td>
+        <td>{{s.dateofBirth}}</td>
+        <td><a routerLink = "/viewById/{{s.id}}">View</a></td>
+        <td><input type="button" (click)="deleteRecord(s.id)" value="Delete"></td>
+    </tr>
+</table>
