@@ -1,0 +1,70 @@
+<form [formGroup]="formG" (ngSubmit) = "updateInfo()">
+    <div>
+        <table>
+            <tr>
+                <th><label>Username </label></th>
+                <th><label>Password </label></th>
+                <th><label>Mobile </label></th>
+                <th><label>Email </label></th>
+                <th><label>Date of Birth </label></th>
+            </tr>
+            <td>
+                <input type="text" formControlName="username" placeholder="Enter your Name" id = "username">
+                <div *ngIf = "formG.get('username')?.['invalid'] && (formG.get('username')?.['dirty'] || formG.get('username')?.['touched'])">
+                    <small *ngIf="formG.get('username')?.errors?.['required']">
+                        Username is required.
+                    </small>
+                    <small *ngIf = "formG.get('username')?.errors?.['minlength'] || formG.get('username')?.errors?.['maxlength']">
+                        Minimum of 4 characters and maximum of 12 characters.
+                    </small>
+                </div>
+            </td>
+            <td>
+                <input type="password" formControlName="password" placeholder="Enter your Password" id = "password">
+                <div *ngIf = "formG.get('password')?.['invalid'] && (formG.get('password')?.['dirty'] || formG.get('password')?.['touched'])">
+                    <small *ngIf="formG.get('password')?.errors?.['required']">
+                        Password is required.
+                    </small>
+                    <small *ngIf = "formG.get('password')?.errors?.['pattern']">
+                        Invalid password.
+                    </small>
+                </div>
+            </td>
+            <td>
+                <input type="text" formControlName="mobile" placeholder="Enter your mobile" id = "mobile">
+                <div *ngIf = "formG.get('mobile')?.['invalid'] && (formG.get('mobile')?.['dirty'] || formG.get('mobile')?.['touched'])">
+                    <small *ngIf="formG.get('mobile')?.errors?.['required']">
+                        Mobile number is required.
+                    </small>
+                    <small *ngIf = "formG.get('mobile')?.errors?.['pattern']">
+                        Invalid Mobile number.
+                    </small>
+                </div>
+            </td>
+            <td>
+                <input type="text" formControlName="email" placeholder="Enter your Email" id = "email">
+                <div *ngIf = "formG.get('email')?.['invalid'] && (formG.get('email')?.['dirty'] || formG.get('email')?.['touched'])">
+                    <small *ngIf="formG.get('email')?.errors?.['required']">
+                        Email is required.
+                    </small>
+                    <small *ngIf = "formG.get('email')?.errors?.['email']">
+                        Invalid Email.
+                    </small>
+                </div>
+            </td>
+            <td>
+                <input type="text" formControlName="dateofBirth" placeholder="Enter your Date of Birth" id = "dateofBirth">
+                <div *ngIf = "formG.get('dateofBirth')?.['invalid'] && (formG.get('dateofBirth')?.['dirty'] || formG.get('dateofBirth')?.['touched'])">
+                    <small *ngIf="formG.get('dateofBirth')?.errors?.['required']">
+                        Date of Birth is required.
+                    </small>
+                    <small *ngIf = "!(formG.get('dateofBirth')?.errors?.['required']) && formG.get('dateofBirth')?.errors?.['retVal']">
+                        Invalid Date of Birth.
+                    </small>
+                </div>
+
+            </td>
+        </table>
+        <input type="submit" [disabled]="formG.invalid" value="Update">
+    </div>
+</form>

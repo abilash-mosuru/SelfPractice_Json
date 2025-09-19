@@ -10,13 +10,16 @@ import { StudentService } from 'src/app/service/student.service';
 })
 export class ViewByIdComponent implements OnInit{
   stud$!:Student;
+  id!:string;
   constructor(private service:StudentService,private active:ActivatedRoute){
   }
   ngOnInit(): void {
-    this.active.params.subscribe(para=>{
-      const d = para['id'];
-      this.getStudentById(d);
-    })
+    // this.active.params.subscribe(para=>{
+    //   const d = para['id'];
+    //   this.getStudentById(d);
+    // })
+    this.id = String(this.active.snapshot.paramMap.get('id'));
+    this.getStudentById(this.id);
   }
   getStudentById(id:any){
     this.service.getStudentById(id).subscribe((data)=>{

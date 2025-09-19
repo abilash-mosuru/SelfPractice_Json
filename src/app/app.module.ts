@@ -7,13 +7,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ViewComponent } from './components/view/view.component';
 import { ViewByIdComponent } from './components/view-by-id/view-by-id.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UpdateComponent } from './components/update/update.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddComponent,
     ViewComponent,
-    ViewByIdComponent
+    ViewByIdComponent,
+    UpdateComponent
   ],
   imports: [
     BrowserModule,
