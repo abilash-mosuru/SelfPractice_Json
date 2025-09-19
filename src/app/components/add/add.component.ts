@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { StudentService } from 'src/app/service/student.service';
 
 @Component({
@@ -17,8 +17,15 @@ export class AddComponent implements OnInit{
       password:["",[Validators.required,Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$')]],
       mobile:["",[Validators.required,Validators.pattern('^[6-9][0-9]{9}$')]],
       email:["",[Validators.required,Validators.email]],
-      dateofBirth:["",[Validators.required,Validators.pattern('^\\d{4}-\\d{2}-\\d{2}$')]]
+      dateofBirth:["",[Validators.required,this.date]]
     });
+  }
+  date(cont:AbstractControl):ValidationErrors | null{
+    const pat = /^\d{4}-\d{2}-\d{2}$/;
+    if(!pat.test(cont.value)){
+      return {retVal : true};
+    }
+    return null;
   }
   addInfo(){
     if(this.formG.valid){

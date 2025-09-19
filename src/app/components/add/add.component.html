@@ -58,7 +58,7 @@
                     <small *ngIf="formG.get('dateofBirth')?.errors?.['required']">
                         Date of Birth is required.
                     </small>
-                    <small *ngIf = "formG.get('dateofBirth')?.errors?.['pattern']">
+                    <small *ngIf = "!(formG.get('dateofBirth')?.errors?.['required']) && formG.get('dateofBirth')?.errors?.['retVal']">
                         Invalid Date of Birth.
                     </small>
                 </div>
