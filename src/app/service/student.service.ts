@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StudentService {
-  apiURL:string="https://ec2-13-201-166-83.projects.wecreateproblems.com/proxy/8000/students";
+  apiURL:string="https://ec2-13-232-196-21.projects.wecreateproblems.com/proxy/8000/students";
 
   constructor(private httpCall:HttpClient) { 
   }

@@ -34,5 +34,4 @@ export class AddComponent implements OnInit{
       alert("success");
     }
   }
-
 }
