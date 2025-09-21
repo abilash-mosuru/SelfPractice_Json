@@ -44,9 +44,9 @@ export class AddComponent implements OnInit{
     }
     return null;
   }
-  dateRangeValidator(group:FormControl):ValidationErrors | null{
-    const startDate = group.get('policyStartDate')?.value;
-    const endDate = group.get('policyEndDate')?.value;
+  dateRangeValidator(cont:AbstractControl):ValidationErrors | null{
+    const startDate = cont.get('policyStartDate')?.value;
+    const endDate = cont.get('policyEndDate')?.value;
     if(startDate && endDate){
       const first = new Date(startDate)
       const last = new Date(endDate)
@@ -56,7 +56,7 @@ export class AddComponent implements OnInit{
     }
     return null;
   }
-  positiveNumber(control:FormControl):ValidationErrors | null{
+  positiveNumber(control:AbstractControl):ValidationErrors | null{
     const check = control.value;
     if( check !== '' && check !==null && check > 0){
       return null;
