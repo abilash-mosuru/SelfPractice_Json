@@ -5,4 +5,8 @@ export class Student {
     mobile!:string;
     email!:string;
     dateofBirth!:string;
+    policyStartDate!: string;
+    policyEndDate!: string;
+    salary!:number;
+    description!:string;
 }

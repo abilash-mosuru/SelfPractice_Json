@@ -24,6 +24,7 @@ export class ViewByIdComponent implements OnInit{
   getStudentById(id:any){
     this.service.getStudentById(id).subscribe((data)=>{
       this.stud$ = data;
+      console.log(this.stud$);
     })
   }
 

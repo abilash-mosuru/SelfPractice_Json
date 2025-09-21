@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { StudentService } from 'src/app/service/student.service';
 
 @Component({
@@ -9,29 +10,66 @@ import { StudentService } from 'src/app/service/student.service';
 })
 export class AddComponent implements OnInit{
   formG!:FormGroup;
-  constructor(private formBuilder:FormBuilder,private service:StudentService){
+  constructor(private formBuilder:FormBuilder,private service:StudentService,private route:Router){
   }
+
   ngOnInit(): void {
     this.formG = this.formBuilder.group({
-      username:["",[Validators.required,Validators.minLength(4),Validators.maxLength(12)]],
+      username:["",[Validators.required,Validators.minLength(4),Validators.maxLength(12),this.uniqueValidator]],
       password:["",[Validators.required,Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$')]],
       mobile:["",[Validators.required,Validators.pattern('^[6-9][0-9]{9}$')]],
       email:["",[Validators.required,Validators.email]],
-      dateofBirth:["",[Validators.required,this.date]]
-    });
+      dateofBirth:["",[Validators.required,this.date1]],
+      policyStartDate:["",[Validators.required,this.date1]],
+      policyEndDate:["",[Validators.required,this.date1]],
+      salary:["",[Validators.required,this.positiveNumber]],
+      description:["",[Validators.required]]
+    },{validators : this.dateRangeValidator});
   }
-  date(cont:AbstractControl):ValidationErrors | null{
+  uniqueValidator(cont:AbstractControl):ValidationErrors | null{
+    const user = cont.value;
+    let value = JSON.parse(localStorage.getItem('Student') || '{}');
+    if(Array.isArray(value)){
+      const users = value.map((d:any)=>d.username);
+      if(users.includes(user)){
+        return {notUnique : true};
+      }
+    }
+    return null;
+  }
+  date1(cont:AbstractControl):ValidationErrors | null{
     const pat = /^\d{4}-\d{2}-\d{2}$/;
     if(!pat.test(cont.value)){
       return {retVal : true};
     }
     return null;
   }
+  dateRangeValidator(group:FormControl):ValidationErrors | null{
+    const startDate = group.get('policyStartDate')?.value;
+    const endDate = group.get('policyEndDate')?.value;
+    if(startDate && endDate){
+      const first = new Date(startDate)
+      const last = new Date(endDate)
+    if(last < first){
+        return {dateRangeInvalid : true};
+      }
+    }
+    return null;
+  }
+  positiveNumber(control:FormControl):ValidationErrors | null{
+    const check = control.value;
+    if( check !== '' && check !==null && check > 0){
+      return null;
+    }
+    return {positiveInvalid : true};
+  }
+
   addInfo(){
     if(this.formG.valid){
       this.service.addStudent(this.formG.value).subscribe();
       this.formG.reset();
-      alert("success");
+      this.route.navigate(['/viewStudent']);
+      alert("Added");
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, toArray } from 'rxjs';
 import { Student } from 'src/app/model/student';
 import { StudentService } from 'src/app/service/student.service';
 
@@ -21,9 +21,24 @@ export class ViewComponent implements OnInit{
     }
     this.getData();
   }
+  // getData(){
+  //   this.data$=this.service.viewStudent();
+  //   this.finalData$=this.data$.pipe(map((d)=>d.sort((a:Student,b:Student)=>a.username.localeCompare(b.username))));
+  // }
+
+  //For unique user
   getData(){
-    this.data$=this.service.viewStudent();
-    this.finalData$=this.data$.pipe(map((d)=>d.sort((a:Student,b:Student)=>a.username.localeCompare(b.username))));
+    this.data$ = this.service.viewStudent();
+    this.finalData$ = this.data$.pipe(map((d)=>d.sort((a:Student,b:Student)=>a.username.localeCompare(b.username))));
+    this.finalData$.pipe(toArray());
+    let newArr;
+    this.finalData$.subscribe((d)=>{
+      newArr = d;
+      if(newArr){
+        const data = JSON.stringify(newArr);
+        localStorage.setItem("Student",data);
+      }
+    });
   }
   searchValue(e:any){
     const valueGiven = e.target.value;

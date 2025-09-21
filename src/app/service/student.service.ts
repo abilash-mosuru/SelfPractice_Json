@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Student } from '../model/student';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
-  apiURL:string="https://ec2-13-232-196-21.projects.wecreateproblems.com/proxy/8000/students";
+  apiURL:string="https://ec2-52-66-11-89.projects.wecreateproblems.com/proxy/7000/students";
 
   constructor(private httpCall:HttpClient) { 
   }
@@ -20,6 +20,16 @@ export class StudentService {
   getStudentById(d:any):Observable<any>{
     return this.httpCall.get(this.apiURL+"/"+d);
   }
+  // getStudentById(d:any):Observable<any[]>{
+  //   return this.httpCall.get(this.apiURL+"/"+d).pipe(map((data):any=>{
+  //     if(Array.isArray(data)){
+  //       return DataTransfer;
+  //     }else{
+  //       return [data];
+  //     }
+  //   })
+  // );
+  // }
   deleteStudentById(d:any):Observable<any>{
     return this.httpCall.delete(this.apiURL+"/"+d);
   }

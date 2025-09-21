@@ -7,6 +7,11 @@
                 <th><label>Mobile </label></th>
                 <th><label>Email </label></th>
                 <th><label>Date of Birth </label></th>
+                <th><label>Policy Start Date</label></th>
+                <th><label>Policy End Date</label></th>
+                <th><label>Salary</label></th>
+                <th><label>Description</label></th>
+              
             </tr>
             <td>
                 <input type="text" formControlName="username" placeholder="Enter your Name" id = "username">
@@ -18,6 +23,9 @@
                         Minimum of 4 characters and maximum of 12 characters.
                     </small>
                 </div>
+                <small *ngIf = "formG.get('username')?.errors?.['notUnique']">
+                    username already exists.
+                </small>
             </td>
             <td>
                 <input type="password" formControlName="password" placeholder="Enter your Password" id = "password">
@@ -62,8 +70,64 @@
                         Invalid Date of Birth.
                     </small>
                 </div>
-
             </td>
+            <td>
+                <input type="text" formControlName="policyStartDate" placeholder="YYYY-MM-DD" id="policyStartDate">
+                <div *ngIf="formG.get('policyStartDate')?.['invalid'] && (formG.get('policyStartDate')?.['dirty'] || formG.get('policyStartDate')?.['touched'])">
+                  <small *ngIf="formG.get('policyStartDate')?.errors?.['required']">
+                    Policy Start Date is required.
+                  </small>
+                  <small *ngIf="!(formG.get('policyStartDate')?.errors?.['required']) && formG.get('policyStartDate')?.errors?.['retVal']">
+                    Invalid Start Date format.
+                  </small>               
+              
+                </div>
+              </td>
+            <td>
+                <input type="text" formControlName="policyEndDate" placeholder="YYYY-MM-DD"  id ="policyEndDate">
+                <div *ngIf = "formG.get('policyEndDate')?.['invalid'] && (formG.get('policyEndDate')?.['dirty'] || formG.get('policyEndDate')?.['touched'])">
+                    <small *ngIf = "formG.get('policyEndDate')?.errors?.['required']">
+                        Policy End Date is required.
+                    </small>
+                    <small *ngIf="!(formG.get('policyEndDate')?.errors?.['required']) && formG.get('policyEndDate')?.errors?.['retVal']">
+                        Invalid End Date format.
+                      </small>                            
+                </div>
+                <small *ngIf="!(formG.get('policyEndDate')?.errors?.['retVal']) && formG.errors?.['dateRangeInvalid'] && 
+                      (formG.get('policyStartDate')?.touched 
+                      || formG.get('policyEndDate')?.touched)">
+                      End Date must be after Start Date.
+            </small>       
+            </td>
+            <td>
+                <input type="number"  placeholder="Enter your salary" formControlName="salary" id="salary">
+                <div *ngIf = "formG.get('salary')?.['invalid'] && (formG.get('salary')?.['touched'] || formG.get('salary')?.['dirty'])">
+                    <small *ngIf = "formG.get('salary')?.errors?.['required']">
+                        Salary is required.
+                    </small> 
+                </div>
+                <small *ngIf = "!(formG.get('salary')?.errors?.['required']) && formG.get('salary')?.errors?.['positiveInvalid']">
+                    Salary should not be in negative.
+                </small>
+            </td>
+            <td>
+                <input
+                  type="text"
+                  id="description"
+                  formControlName="description"
+                  placeholder="Enter description"
+                  autocapitalize="off"
+                  (input)="formG.get('description')?.setValue(($any($event.target).value || '').toLowerCase())"
+                />
+              
+                <div *ngIf="formG.get('description')?.invalid && (formG.get('description')?.dirty || formG.get('description')?.touched)">
+                  <small *ngIf="formG.get('description')?.errors?.['required']">
+                    Description is required.
+                  </small>
+                </div>
+              </td>
+              
+
         </table>
         <input type="submit" [disabled]="formG.invalid" value="register">
     </div>
